@@ -9,6 +9,12 @@ $(window).load(function() {
     $.getJSON("/get",
         function(data) {
              ylenews = data;
-             document.getElementById("news").appendChild(ylenews);
+             for (var i = 0; i < 10; i++)
+             {
+                 $("#news").append(ylenews[i].title);
+                 $("#news").append("<p>");
+             }
+             console.log(ylenews[0].description);
+             //document.getElementById("news").appendChild(ylenews);
     });
 });

@@ -22,14 +22,10 @@ app.get('/', function(req, res) {
 });
 
 app.get('/get', function(req, response) {
-   
-    //map stuff
-
-
-    //news stuff
     var news = [];
     http.get('http://yle.fi/uutiset/rss/uutiset.rss?osasto=kotimaa',
         function(res) {
+            console.log(res);
             res.pipe(new feedParser({}))
               .on('error', function(error) {
                   //error
@@ -43,17 +39,16 @@ app.get('/get', function(req, response) {
                       var article = {
                           'title' : item.title,
                           'link' : item.link,
-               //           'content' : item.content:encoded,
+                          'description' : item.description
                       };
+                        console.log("yay");
                       news.push(article);
                   }
-                  console.log("yay");
              })
              .on('end', function() {
-
+                response.json(news);
              });
 
-            response.json(news);
         });
 
 });
